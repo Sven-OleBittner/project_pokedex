@@ -1,0 +1,1 @@
+const URL_DATA = 'https://pokeapi.co/api/v2/';
