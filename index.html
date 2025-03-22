@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="./styles/standard.css" />
     <link rel="stylesheet" href="./style.css" />
   </head>
-  <body>
+  <body onload="init()">
     <section id="header" class="header">
       <div class="container">
         <div class="row">
@@ -46,9 +46,27 @@
                   placeholder="Search for Pokémon"
                   id="search"
                 />
+
                 <button class="main__search-btn" id="search-btn">Search</button>
               </div>
-              <div class="main__cards" id="pokemonCards"></div>
+              <div class="main__cards" id="pokemonCards">
+                <div class="card" style="width: 12rem">
+                  <h3>
+                    <span> #1 Bulbasaur </span>
+                  </h3>
+                  <img
+                    src="./sprites/sprites/pokemon/1.png"
+                    class="card-img-top"
+                    alt="..."
+                  />
+                  <div class="card-body">
+                    <p class="card-text">
+                      Some quick example text to build on the card title and
+                      make up the bulk of the card's content.
+                    </p>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
