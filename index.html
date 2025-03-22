@@ -10,7 +10,7 @@
       integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="./styles/bg_types.css">
+    <link rel="stylesheet" href="./styles/bg_types.css" />
     <link rel="stylesheet" href="./assets/fonts/fonts.css" />
     <link rel="stylesheet" href="./styles/media.css" />
     <link rel="stylesheet" href="./styles/btn.css" />
@@ -40,7 +40,7 @@
         <div class="row">
           <div class="col-12">
             <div class="main__content">
-              <div class="main__search">
+              <div class="main__search d-flex justify-content-center p-3">
                 <input
                   type="text"
                   class="main__search-input"
@@ -52,9 +52,11 @@
               </div>
               <div class="main__cards" id="pokemonCards"></div>
             </div>
-            <button onclick="loadMore()" class="btn btn-primary">
-              Load More Pokemons
-            </button>
+            <div class="btn_container p-3">
+              <button onclick="loadMore()" class="btn btn-primary">
+                Load More Pokemons
+              </button>
+            </div>
           </div>
         </div>
       </div>

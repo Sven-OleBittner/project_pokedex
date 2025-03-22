@@ -9,6 +9,7 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    gap: 8px;
 }
 
 .card-title{
@@ -25,4 +26,10 @@
     margin: 0 auto;
     font-size: 12px;
     font-weight: bold;
+}
+
+.btn_container{
+    display: flex;
+    justify-content: center;
+    gap: 8px;
 }
