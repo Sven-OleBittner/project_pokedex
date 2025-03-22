@@ -1,9 +1,9 @@
 function getPokemonTemplate(i, data, types) {
   return `
    <div class="card" style="width: 12rem">
-                  <h3>
-                    <span> #${i+1} ${data.results[i].name} </span>
-                  </h3>
+                  <h4 class="card-title">
+                    <span class="poke_name"> #${i+1} ${data.results[i].name} </span>
+                  </h4>
                   <img
                     src="./sprites/sprites/pokemon/${i + 1}.png"
                     class="card-img-top"
