@@ -55,7 +55,6 @@ async function getTypeCircle(types) {
 async function loadMore() {
   if (limit != 1302) {
     limit += 20;
-    // offset += 20;
     const response = await fetch(
       `${URL_DATA}pokemon?limit=${limit}&offset=${offset}`
     );

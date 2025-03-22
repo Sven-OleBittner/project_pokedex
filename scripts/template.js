@@ -1,6 +1,6 @@
 function getPokemonTemplate(i, data, types) {
   return `
-   <div class="card " style="width: 12rem">
+   <div class="card pointer" style="width: 12rem">
                   <h4 class="card-title">
                     <span class="poke_name"> #${i+1} ${data.results[i].name} </span>
                   </h4>
