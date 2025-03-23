@@ -15,11 +15,11 @@ async function getPokemons() {
 }
 
 async function renderPokemons(data) {
-  let pokeKeys = Object.keys(data.results);
+  // let pokeKeys = Object.keys(data.results);
   let pokemonCardsRef = document.getElementById("pokemonCards");
   pokemonCardsRef.innerHTML = "";
 
-  for (let i = 0; i < pokeKeys.length; i++) {
+  for (let i = 0; i < data.results.length; i++) {
     let types = await getPokemonType(i);
     pokemonCardsRef.innerHTML += getPokemonTemplate(i, data, types);
     renderTypesCircle(i, types);
@@ -27,10 +27,9 @@ async function renderPokemons(data) {
 }
 
 async function renderTypesCircle(i, types) {
-  let typeCircleRef = document.getElementById(`${i+1}cardBody`);
+  let typeCircleRef = document.getElementById(`${i + 1}cardBody`);
   let typeCircle = await getTypeCircle(types);
   typeCircleRef.innerHTML = typeCircle;
-  
 }
 
 async function getPokemonType(i) {
@@ -49,7 +48,6 @@ async function getTypeCircle(types) {
   } else {
     return getTypeCircleDouble(types);
   }
-  
 }
 
 async function loadMore() {
@@ -61,4 +59,25 @@ async function loadMore() {
     const data = await response.json();
     renderPokemons(data);
   }
+}
+
+function searchPokemons() {
+  const searchQuery = document.getElementById("search").value;
+  filterPokemonByName(searchQuery);
+}
+
+async function filterPokemonByName(searchQuery) {
+  const response = await fetch(`${URL_DATA}pokemon?limit=1302&offset=0`);
+  let data = await response.json();
+
+  // Filter Pokémon basierend auf dem Namen
+  let filteredPokemons = data.results.indexOf(searchQuery.toLowerCase());
+  if (filteredPokemons !== -1) {
+    console.log(`Pokemon gefunden an Index: ${filteredPokemons}`);
+  } else {
+    console.log("Pokemon nicht gefunden");
+  }
+data.results = filteredPokemons;
+  // Render die gefilterten Pokémon
+  renderPokemons(data);
 }
