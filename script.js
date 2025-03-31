@@ -15,38 +15,21 @@ async function getPokemons() {
 }
 
 async function renderPokemons(data) {
-  // let pokeKeys = Object.keys(data.results);
   let pokemonCardsRef = document.getElementById("pokemonCards");
   pokemonCardsRef.innerHTML = "";
 
-  for (let i = 0; i < data.results.length; i++) {
-    let types = await getPokemonType(i);
-    pokemonCardsRef.innerHTML += getPokemonTemplate(i, data, types);
-    renderTypesCircle(i, types);
-  }
-}
-
-async function renderTypesCircle(i, types) {
-  let typeCircleRef = document.getElementById(`${i + 1}cardBody`);
-  let typeCircle = await getTypeCircle(types);
-  typeCircleRef.innerHTML = typeCircle;
-}
-
-async function getPokemonType(i) {
-  let types = [];
-  const pokemonResponse = await fetch(`${URL_DATA}pokemon/${i + 1}`);
-  const pokemonData = await pokemonResponse.json();
-  pokemonData.types.forEach((type) => {
-    types.push(type.type.name);
-  });
-  return types;
-}
-
-async function getTypeCircle(types) {
-  if (types.length == 1) {
-    return getTypeCircleSingle(types);
-  } else {
-    return getTypeCircleDouble(types);
+  for (let pokemon of data.results) {
+    const pokemonResponse = await fetch(pokemon.url);
+    const pokemonData = await pokemonResponse.json();
+    const sprite = pokemonData.sprites.front_default;
+    const types = pokemonData.types.map((type) => type.type.name);
+    const number = pokemonData.id;
+    pokemonCardsRef.innerHTML += getPokemonTemplate(
+      pokemonData,
+      sprite,
+      types,
+      number
+    );
   }
 }
 
@@ -61,23 +44,14 @@ async function loadMore() {
   }
 }
 
-function searchPokemons() {
-  const searchQuery = document.getElementById("search").value;
-  filterPokemonByName(searchQuery);
-}
+async function searchPokemonByName() {
+  const searchQuery = document.getElementById("search").value.trim().toLowerCase();
+  if (searchQuery.length < 3) return alert("Please enter at least 3 characters to search.");
 
-async function filterPokemonByName(searchQuery) {
-  const response = await fetch(`${URL_DATA}pokemon?limit=1302&offset=0`);
-  let data = await response.json();
+  const data = await (await fetch(`${URL_DATA}pokemon?limit=1302&offset=0`)).json();
+  const filteredPokemons = data.results.filter(pokemon => pokemon.name.toLowerCase().includes(searchQuery));
 
-  // Filter Pokémon basierend auf dem Namen
-  let filteredPokemons = data.results.indexOf(searchQuery.toLowerCase());
-  if (filteredPokemons !== -1) {
-    console.log(`Pokemon gefunden an Index: ${filteredPokemons}`);
-  } else {
-    console.log("Pokemon nicht gefunden");
-  }
-data.results = filteredPokemons;
-  // Render die gefilterten Pokémon
-  renderPokemons(data);
+  filteredPokemons.length
+    ? renderPokemons({ results: filteredPokemons })
+    : alert("No Pokémon found with the given name.");
 }
