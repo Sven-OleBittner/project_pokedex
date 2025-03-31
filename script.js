@@ -28,7 +28,8 @@ async function renderPokemons(data) {
       pokemonData,
       sprite,
       types,
-      number
+      number,
+      pokemonResponse
     );
   }
 }
@@ -73,4 +74,78 @@ function resetPokedex() {
     console.error("Error resetting the Pokédex:", error);
     alert("An error occurred while resetting the Pokédex. Please try again.");
   }
+}
+
+async function showPokemonDetails(pokemonUrl) {
+  try {
+    const pokemonResponse = await fetch(pokemonUrl);
+    const pokemonData = await pokemonResponse.json();
+
+    // Abrufen der Evolutionskette
+   
+    
+    const speciesResponse = await fetch(pokemonData.species.url);
+    const speciesData = await speciesResponse.json();
+    const evolutionResponse = await fetch(speciesData.evolution_chain.url);
+    const evolutionData = await evolutionResponse.json();
+
+    // Extrahieren der Evolutionskette
+    const evolutionChain = [];
+    let currentEvolution = evolutionData.chain;
+    do {
+      evolutionChain.push(currentEvolution.species.name);
+      currentEvolution = currentEvolution.evolves_to[0];
+    } while (currentEvolution);
+
+    // Erstellen des Overlays
+    const overlay = document.getElementById("singlePokemon");
+    overlay.innerHTML = getSinglePokemonTemplate(pokemonData);
+    overlay.style.display = "flex";
+    getProperties(pokemonData)
+  } catch (error) {
+    console.error("Error fetching Pokémon details:", error);
+    alert("An error occurred while fetching Pokémon details. Please try again.");
+  }
+}
+
+function closeOverlay() {
+  const overlay = document.getElementById("singlePokemon");
+  overlay.style.display = "none";
+  overlay.innerHTML = ""; // Leeren des Overlays
+}
+
+function getProperties(pokemonData) {
+  const overlay = document.getElementById("singlePokemonInfo");
+  overlay.innerHTML = getPropertiesPokemonTemplate(pokemonData);
+  overlay.style.display = "flex";
+}
+
+function getStats(pokemonData) {
+  const overlay = document.getElementById("singlePokemonInfo");
+  overlay.innerHTML = getStatsPokemonTemplate(pokemonData);
+  overlay.style.display = "flex";
+}
+
+async function getEvoChain(pokemonUrl) {
+  const overlay = document.getElementById("singlePokemonInfo");
+  const pokemonResponse = await fetch(pokemonUrl);
+    const pokemonData = await pokemonResponse.json();
+
+    // Abrufen der Evolutionskette
+   
+    
+    const speciesResponse = await fetch(pokemonData.species.url);
+    const speciesData = await speciesResponse.json();
+    const evolutionResponse = await fetch(speciesData.evolution_chain.url);
+    const evolutionData = await evolutionResponse.json();
+
+    // Extrahieren der Evolutionskette
+    const evolutionChain = [];
+    let currentEvolution = evolutionData.chain;
+    do {
+      evolutionChain.push(currentEvolution.species.name);
+      currentEvolution = currentEvolution.evolves_to[0];
+    } while (currentEvolution);
+  overlay.innerHTML = getEvoChainTemplate(evolutionChain);
+  overlay.style.display = "flex";
 }
