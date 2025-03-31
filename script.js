@@ -45,13 +45,28 @@ async function loadMore() {
 }
 
 async function searchPokemonByName() {
-  const searchQuery = document.getElementById("search").value.trim().toLowerCase();
-  if (searchQuery.length < 3) return alert("Please enter at least 3 characters to search.");
+  const searchQuery = document
+    .getElementById("search")
+    .value.trim()
+    .toLowerCase();
+  if (searchQuery.length < 3)
+    return alert("Please enter at least 3 characters to search.");
 
-  const data = await (await fetch(`${URL_DATA}pokemon?limit=1302&offset=0`)).json();
-  const filteredPokemons = data.results.filter(pokemon => pokemon.name.toLowerCase().includes(searchQuery));
+  const data = await (
+    await fetch(`${URL_DATA}pokemon?limit=1302&offset=0`)
+  ).json();
+  const filteredPokemons = data.results.filter((pokemon) =>
+    pokemon.name.toLowerCase().includes(searchQuery)
+  );
 
   filteredPokemons.length
     ? renderPokemons({ results: filteredPokemons })
     : alert("No Pokémon found with the given name.");
+}
+
+function resetPokedex() {
+  limit = 20;
+  offset = 0;
+  document.getElementById("search").value = "";
+  getPokemons();
 }
