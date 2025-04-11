@@ -21,13 +21,10 @@ async function renderPokemons(data) {
   for (let pokemon of data.results) {
     const pokemonResponse = await fetch(pokemon.url);
     const pokemonData = await pokemonResponse.json();
-    const sprite = pokemonData.sprites.front_default;
+    const sprite = pokemonData.sprites.other.home.front_default;
     const types = pokemonData.types.map((type) => type.type.name);
     const number = pokemonData.id;
-    pokemonCardsRef.innerHTML += getPokemonTemplate(
-      pokemonData,
-      sprite,
-      types,
+    pokemonCardsRef.innerHTML += getPokemonTemplate(pokemonData,sprite,types,
       number,
       pokemonResponse
     );
@@ -64,6 +61,7 @@ async function searchPokemonByName() {
     alert("An error occurred while searching for Pokémon. Please try again.");
   }
 }
+
 function resetPokedex() {
   try {
     limit = 20;
@@ -81,27 +79,27 @@ async function showPokemonDetails(pokemonUrl) {
     const pokemonResponse = await fetch(pokemonUrl);
     const pokemonData = await pokemonResponse.json();
 
-    // Abrufen der Evolutionskette
+    // // Abrufen der Evolutionskette
    
     
-    const speciesResponse = await fetch(pokemonData.species.url);
-    const speciesData = await speciesResponse.json();
-    const evolutionResponse = await fetch(speciesData.evolution_chain.url);
-    const evolutionData = await evolutionResponse.json();
+    // const speciesResponse = await fetch(pokemonData.species.url);
+    // const speciesData = await speciesResponse.json();
+    // const evolutionResponse = await fetch(speciesData.evolution_chain.url);
+    // const evolutionData = await evolutionResponse.json();
 
-    // Extrahieren der Evolutionskette
-    const evolutionChain = [];
-    let currentEvolution = evolutionData.chain;
-    do {
-      evolutionChain.push(currentEvolution.species.name);
-      currentEvolution = currentEvolution.evolves_to[0];
-    } while (currentEvolution);
+    // // Extrahieren der Evolutionskette
+    // const evolutionChain = [];
+    // let currentEvolution = evolutionData.chain;
+    // do {
+    //   evolutionChain.push(currentEvolution.species.name);
+    //   currentEvolution = currentEvolution.evolves_to[0];
+    // } while (currentEvolution);
 
     // Erstellen des Overlays
     const overlay = document.getElementById("singlePokemon");
-    overlay.innerHTML = getSinglePokemonTemplate(pokemonData);
+    overlay.innerHTML = getSinglePokemonTemplate(pokemonData, pokemonUrl);
     overlay.style.display = "flex";
-    getProperties(pokemonData)
+    // getProperties(pokemonData);
   } catch (error) {
     console.error("Error fetching Pokémon details:", error);
     alert("An error occurred while fetching Pokémon details. Please try again.");
@@ -114,38 +112,41 @@ function closeOverlay() {
   overlay.innerHTML = ""; // Leeren des Overlays
 }
 
-function getProperties(pokemonData) {
+async function getProperties(pokemonUrl) {
   const overlay = document.getElementById("singlePokemonInfo");
+  const pokemonResponse = await fetch(pokemonUrl);
+  const pokemonData = await pokemonResponse.json();
   overlay.innerHTML = getPropertiesPokemonTemplate(pokemonData);
   overlay.style.display = "flex";
 }
 
-function getStats(pokemonData) {
+async function getStats(pokemonUrl) {
   const overlay = document.getElementById("singlePokemonInfo");
+  const pokemonResponse = await fetch(pokemonUrl);
+  const pokemonData = await pokemonResponse.json();
   overlay.innerHTML = getStatsPokemonTemplate(pokemonData);
   overlay.style.display = "flex";
 }
 
 async function getEvoChain(pokemonUrl) {
   const overlay = document.getElementById("singlePokemonInfo");
-  const pokemonResponse = await fetch(pokemonUrl);
-    const pokemonData = await pokemonResponse.json();
+  try {
+    const pokemonData = await (await fetch(pokemonUrl)).json();
+    const speciesData = await (await fetch(pokemonData.species.url)).json();
+    const evolutionData = await (await fetch(speciesData.evolution_chain.url)).json();
 
-    // Abrufen der Evolutionskette
-   
-    
-    const speciesResponse = await fetch(pokemonData.species.url);
-    const speciesData = await speciesResponse.json();
-    const evolutionResponse = await fetch(speciesData.evolution_chain.url);
-    const evolutionData = await evolutionResponse.json();
-
-    // Extrahieren der Evolutionskette
     const evolutionChain = [];
-    let currentEvolution = evolutionData.chain;
-    do {
-      evolutionChain.push(currentEvolution.species.name);
-      currentEvolution = currentEvolution.evolves_to[0];
-    } while (currentEvolution);
-  overlay.innerHTML = getEvoChainTemplate(evolutionChain);
-  overlay.style.display = "flex";
+    let current = evolutionData.chain;
+    while (current) {
+      const evoData = await (await fetch(`${URL_DATA}pokemon/${current.species.name}`)).json();
+      evolutionChain.push({ name: current.species.name, sprite: evoData.sprites.front_default });
+      current = current.evolves_to[0];
+    }
+
+    overlay.innerHTML = getEvoChainTemplate(evolutionChain);
+    overlay.style.display = "flex";
+  } catch (error) {
+    console.error("Error fetching evolution chain:", error);
+    alert("An error occurred while fetching the evolution chain.");
+  }
 }

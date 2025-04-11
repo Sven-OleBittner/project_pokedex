@@ -1,0 +1,17 @@
+.list-group {
+    width: 100%;
+}
+
+.single_pokemon_info {
+    display: flex;
+    flex-direction: column;
+}
+
+.progress-bar{
+    color: black;
+    overflow: visible;
+}
+
+.card-body {
+    color: white;
+}
