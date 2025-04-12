@@ -12,3 +12,16 @@
 .pointer{
     cursor: pointer;
 }
+
+.overflow_hidden{
+    overflow: hidden;
+}
+
+.overflow_scroll{
+    overflow: scroll;
+}
+
+.site_padding{
+  padding-left: 16px;
+  padding-right: 16px;
+}

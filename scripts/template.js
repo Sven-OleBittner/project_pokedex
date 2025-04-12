@@ -19,42 +19,24 @@ function getPokemonTemplate(pokemonData, sprite, types, number, pokemonResponse)
                 </div>`;
 }
 
-// `<div class="overlay-content">
-//         <button class="close-btn" onclick="closeOverlay()">X</button>
-//         <h2>${pokemonData.name.toUpperCase()}</h2>
-//         <img src="${pokemonData.sprites.front_default}" alt="${pokemonData.name}" />
-//         <h3>Types:</h3>
-//         <p>${pokemonData.types.map((type) => type.type.name).join(", ")}</p>
-//         <h3>Stats:</h3>
-//         <ul>
-//           ${pokemonData.stats
-//             .map(
-//               (stat) =>
-//                 `<li>${stat.stat.name.toUpperCase()}: ${stat.base_stat}</li>`
-//             )
-//             .join("")}
-//         </ul>
-//         <h3>Evolution Chain:</h3>
-//         <p>${evolutionChain.join(" → ")}</p>
-//       </div>`
-
-
 function getSinglePokemonTemplate(pokemonData, pokemonUrl) {
-  return `    <div class="card overlay-content">
-   <button class="close-btn" onclick="closeOverlay()">X</button>
-      <img src="${pokemonData.sprites.other.home.front_default}" class="card-img-top" alt="${pokemonData.name}">
-      <div class="card-body">
-        <div class="btn-group" role="group" aria-label="Basic example">
-          <button onclick="getProperties('${pokemonUrl}')" type="button" class="btn btn-primary">Eigenschaften</button>
-          <button onclick="getStats('${pokemonUrl}')" type="button" class="btn btn-primary">Stats</button>
-          <button onclick="getEvoChain('${pokemonUrl}')" type="button" class="btn btn-primary">Evolutionen</button>
+  return `
+    <div class="overlay site_padding" onclick="closeOverlay(event)">
+      <div class="card overlay-content " onclick="event.stopPropagation()">
+        <button class="close-btn" onclick="closeOverlay()">X</button>
+        <img src="${pokemonData.sprites.other.home.front_default}" class="card-img-top" alt="${pokemonData.name}">
+        <div class="card-body">
+          <div class="btn-group" role="group" aria-label="Basic example">
+            <button onclick="getProperties('${pokemonUrl}')" type="button" class="btn btn-primary">Eigenschaften</button>
+            <button onclick="getStats('${pokemonUrl}')" type="button" class="btn btn-primary">Stats</button>
+            <button onclick="getEvoChain('${pokemonUrl}')" type="button" class="btn btn-primary">Evolutionen</button>
+          </div>
+          <div id="singlePokemonInfo" class="single_pokemon_info"></div>
         </div>
-        <div id="singlePokemonInfo" class="single_pokemon_info"></div>
       </div>
     </div>
-`;
+  `;
 }
-
 function getEvoChainTemplate(evolutionChain) {
   return `
     <div class="card-body">
