@@ -25,3 +25,7 @@
   padding-left: 16px;
   padding-right: 16px;
 }
+
+.d_none{
+    display: none;
+}

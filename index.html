@@ -17,14 +17,16 @@
     <link rel="stylesheet" href="./styles/btn.css" />
     <link rel="stylesheet" href="./styles/standard.css" />
     <link rel="stylesheet" href="./style.css" />
+    <link rel="shortcut icon" href="./assets/icons/Poké_Ball_icon.svg.png" type="image/x-icon">
   </head>
   <body onload="init()">
+ 
     <section id="header" class="header">
       <div class="container">
         <div class="row">
           <div class="col-12">
             <div class="header__content">
-              <h1 class="header__title">Pokédex</h1>
+              <h1 class="header__title"><img src="./assets/imgs/International_Pokémon_logo.svg" alt="" /></h1>
               <p class="header__desc">
                 A Pokédex is a handy tool that records information about all the
                 Pokémon in the world. It will help you to find and catch them
@@ -40,7 +42,7 @@
       <div class="container">
         <div class="row">
           <div class="col-12">
-            <div class="main__content">
+            <div class="main__content" id="mainContent">
               <div class="main__search d-flex justify-content-center p-3">
                 <input
                   type="text"
@@ -74,6 +76,13 @@
           </div>
         </div>
       </div>
+
+          <img
+        src="./assets/imgs/Pokeball_Animation.svg"
+        alt=""
+        class="loading_img d_none"
+        id="loadingIMG"
+      />
     </section>
 
     <section id="singlePokemon" class="pokemon_overlay"></section>

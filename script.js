@@ -17,6 +17,8 @@ async function getPokemons() {
 async function renderPokemons(data) {
   let pokemonCardsRef = document.getElementById("pokemonCards");
   pokemonCardsRef.innerHTML = "";
+  document.getElementById("loadingIMG").classList.remove("d_none");
+  document.getElementById("mainContent").classList.add("d_none");
 
   for (let pokemon of data.results) {
     const pokemonResponse = await fetch(pokemon.url);
@@ -32,6 +34,8 @@ async function renderPokemons(data) {
       pokemonResponse
     );
   }
+  document.getElementById("loadingIMG").classList.add("d_none");
+  document.getElementById("mainContent").classList.remove("d_none");
 }
 
 async function loadMore() {
@@ -55,17 +59,12 @@ async function searchPokemonByName() {
     const query = document.getElementById("search").value.trim().toLowerCase();
     if (query.length < 3)
       return alert("Please enter at least 3 characters to search.");
-
     const data = await (
       await fetch(`${URL_DATA}pokemon?limit=1302&offset=0`)
     ).json();
     const results = data.results.filter((p) =>
-      p.name.toLowerCase().includes(query)
-    );
-
-    results.length
-      ? renderPokemons({ results })
-      : alert("No Pokémon found with the given name.");
+      p.name.toLowerCase().includes(query));
+    results.length? renderPokemons({ results }): alert("No Pokémon found with the given name.");
   } catch (error) {
     console.error("Error searching for Pokémon:", error);
     alert("An error occurred while searching for Pokémon. Please try again.");
@@ -99,7 +98,7 @@ async function showPokemonDetails(pokemonUrl) {
       "An error occurred while fetching Pokémon details. Please try again."
     );
   }
-
+  getProperties(pokemonUrl);
 }
 
 function closeOverlay(event) {
@@ -116,6 +115,15 @@ async function getProperties(pokemonUrl) {
   const pokemonData = await pokemonResponse.json();
   overlay.innerHTML = getPropertiesPokemonTemplate(pokemonData);
   overlay.style.display = "flex";
+}
+
+function playCry(cryUrl) {
+  if (cryUrl && cryUrl !== "null") {
+    const audio = new Audio(cryUrl);
+    audio.play();
+  } else {
+    alert("Kein Schrei verfügbar.");
+  }
 }
 
 async function getStats(pokemonUrl) {

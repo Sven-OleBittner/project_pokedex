@@ -22,12 +22,15 @@ function getPokemonTemplate(pokemonData, sprite, types, number, pokemonResponse)
 function getSinglePokemonTemplate(pokemonData, pokemonUrl) {
   return `
     <div class="overlay site_padding" onclick="closeOverlay(event)">
-      <div class="card overlay-content " onclick="event.stopPropagation()">
+      <div class="card overlay-content site_padding" onclick="event.stopPropagation()">
         <button class="close-btn" onclick="closeOverlay()">X</button>
+         <h4 class="card-title">
+                    <span class="poke_name_card">${pokemonData.name}</span>
+                  </h4>
         <img src="${pokemonData.sprites.other.home.front_default}" class="card-img-top" alt="${pokemonData.name}">
         <div class="card-body">
           <div class="btn-group" role="group" aria-label="Basic example">
-            <button onclick="getProperties('${pokemonUrl}')" type="button" class="btn btn-primary">Eigenschaften</button>
+            <button onclick="getProperties('${pokemonUrl}')" type="button" class="btn btn-primary">Properties</button>
             <button onclick="getStats('${pokemonUrl}')" type="button" class="btn btn-primary">Stats</button>
             <button onclick="getEvoChain('${pokemonUrl}')" type="button" class="btn btn-primary">Evolutionen</button>
           </div>
@@ -64,8 +67,9 @@ function getPropertiesPokemonTemplate(pokemonData) {
           <li class="list-group-item">Base Experience : ${pokemonData.base_experience} Points</li>
           <li class="list-group-item">Height : ${pokemonData.height} m</li>
           <li class="list-group-item">Weight : ${pokemonData.weight} kg</li>
-          <li class="list-group-item">A fourth item</li>
-          <li class="list-group-item">And a fifth one</li>
+          <li class="list-group-item">
+            <button onclick="playCry('${pokemonData.cries.latest}')">Cry</button>
+          </li>
         </ul>
 `;
 }
