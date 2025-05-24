@@ -52,6 +52,11 @@
   box-shadow: 5px 5px 15px 5px rgba(0, 0, 0, 0.7);
 }
 
+.poke_name , .poke_id {
+  text-align: center;
+  color: white;
+}
+
 .poke_sprite{
   width: 120px;
 }
