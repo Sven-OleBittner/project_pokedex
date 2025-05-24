@@ -6,6 +6,7 @@
     <title>Pokedéx</title>
     <link rel="stylesheet" href="./styles/media.css" />
     <link rel="stylesheet" href="./assets/fonts/fonts.css" />
+    <link rel="stylesheet" href="./styles/bg_types.css">
     <link rel="stylesheet" href="./styles/standard.css" />
     <link rel="stylesheet" href="./style.css" />
     <link
@@ -14,7 +15,7 @@
       type="image/x-icon"
     />
   </head>
-  <body class="body">
+  <body class="body" onload="init()">
     <section class="header" id="siteHeader">
       <span class="title">
         <img src="./assets/img/International_Pokémon_logo.svg" alt="" />
@@ -23,27 +24,24 @@
       </span>
     </section>
     <section id="searchbar" class="searchbar top_bottom_padding">
-        <div class="searchbar_container">
-            <input
-            type="text"
-            id="searchInput"
-            class="searchbar_input"
-            placeholder="Search Pokémon..."
-            />
-            <button id="searchButton" class="searchbar_button">Search</button>
-        </div>
+      <div class="searchbar_container">
+        <input
+          type="text"
+          id="searchInput"
+          class="searchbar_input"
+          placeholder="Search Pokémon..."
+        />
+        <button id="searchButton" class="searchbar_button">Search</button>
+      </div>
     </section>
+
+    
+
     <section id="pokeList" class="poke_list site_padding top_bottom_padding">
-
-<div id="pokemonContainer" class="pokemon_container site_padding top_bottom_padding">
-    <span>ID : 1</span>
-    <span>Name : bulbasaur</span>
-    <img src="" alt="Bisa">
-    <span>Types</span>
-</div>
-
-
-
+      <section id="lodingSpinner">
+        
+      </section>
+      
     </section>
 
     <script src="./scripts/template.js"></script>
