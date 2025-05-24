@@ -27,6 +27,12 @@
   justify-content: center;
 }
 
+.spinner_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .poke_list {
   display: flex;
   gap: 8px;
@@ -46,9 +52,19 @@
   box-shadow: 5px 5px 15px 5px rgba(0, 0, 0, 0.7);
 }
 
-.types_container{
+.types_container {
   display: flex;
   gap: 4px;
   flex-direction: column;
   justify-content: center;
+}
+
+.btn_container{
+  display: flex;
+  justify-content: center;
+}
+
+.more_btn {
+  background-color: #4caf50; /* Green */
+  color: white;
 }

@@ -22,3 +22,18 @@ a {
   text-decoration: none;
   color: black;
 }
+
+.d_none {
+  display: none !important;
+}
+
+.btn{
+  border: none;
+  color: black;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 8px;
+}

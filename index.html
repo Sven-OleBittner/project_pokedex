@@ -6,7 +6,7 @@
     <title>Pokedéx</title>
     <link rel="stylesheet" href="./styles/media.css" />
     <link rel="stylesheet" href="./assets/fonts/fonts.css" />
-    <link rel="stylesheet" href="./styles/bg_types.css">
+    <link rel="stylesheet" href="./styles/bg_types.css" />
     <link rel="stylesheet" href="./styles/standard.css" />
     <link rel="stylesheet" href="./style.css" />
     <link
@@ -34,14 +34,23 @@
         <button id="searchButton" class="searchbar_button">Search</button>
       </div>
     </section>
+    <section class="btn_container" id="btnContainer">
+      <button
+        onclick="loadMorePokes()"
+        id="loadMoreButton"
+        class="btn more_btn"
+      >
+        Load More Pokémon
+      </button>
+    </section>
+    <section id="loadingSpinner" class="spinner_container"></section>
+    <section
+      id="pokeList"
+      class="poke_list site_padding top_bottom_padding"
+    ></section>
 
-    
-
-    <section id="pokeList" class="poke_list site_padding top_bottom_padding">
-      <section id="lodingSpinner">
-        
-      </section>
-      
+    <section class="btn_container">
+      <button class="btn"><a href="#siteHeader">Back to Top</a></button>
     </section>
 
     <script src="./scripts/template.js"></script>

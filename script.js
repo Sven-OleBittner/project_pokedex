@@ -7,20 +7,24 @@ function init() {
 }
 
 async function getPokeDatas() {
+  showLoadingSpinner();
+ await new Promise((r) => setTimeout(r, 1));
   let response = await fetch(URL_DATA + `pokemon?limit=${limit}&offset=0`);
   let pokeData = await response.json();
-  showLoadingSpinner();
-  renderPokemons(pokeData);
+ 
+  await renderPokemons(pokeData);
   deleteLoadingSpinner();
 }
 
 function showLoadingSpinner() {
-  document.getElementById("lodingSpinner").innerHTML =
-    "<img src='./assets/img/pokeball-loader.svg'>";
+  document.getElementById("loadingSpinner").innerHTML =
+    '<img src="./assets/img/pokeball-loader.svg">';
+  document.getElementById("pokeList").classList.add("d_none");
 }
 
 function deleteLoadingSpinner() {
-  document.getElementById("lodingSpinner").innerHTML = "";
+  document.getElementById("loadingSpinner").innerHTML = "";
+  document.getElementById("pokeList").classList.remove("d_none");
 }
 
 async function renderPokemons(pokeData) {
@@ -54,4 +58,9 @@ function getPokeTypes(data) {
     )
     .join(" ");
   return types;
+}
+
+function loadMorePokes() {
+  limit += 20;
+  getPokeDatas();
 }
