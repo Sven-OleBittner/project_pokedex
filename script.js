@@ -18,7 +18,6 @@ function showLoadingSpinner() {
 }
 
 async function renderPokemons(pokeData) {
-    showLoadingSpinner();
   let pokeContainer = document.getElementById("pokeList");
   pokeContainer.innerHTML = "";
   for (let pokeIndex = 0; pokeIndex < pokeData.results.length; pokeIndex++) {
@@ -48,5 +47,5 @@ function getPokeTypes(data) {
         `<img src="./assets/types/${type.type.name}.png" alt="${type.type.name}" class="type-icon">`
     )
     .join(" ");
-    return types;
+  return types;
 }
