@@ -9,12 +9,18 @@ function init() {
 async function getPokeDatas() {
   let response = await fetch(URL_DATA + `pokemon?limit=${limit}&offset=0`);
   let pokeData = await response.json();
+  showLoadingSpinner();
   renderPokemons(pokeData);
+  deleteLoadingSpinner();
 }
 
 function showLoadingSpinner() {
   document.getElementById("lodingSpinner").innerHTML =
     "<img src='./assets/img/pokeball-loader.svg'>";
+}
+
+function deleteLoadingSpinner() {
+  document.getElementById("lodingSpinner").innerHTML = "";
 }
 
 async function renderPokemons(pokeData) {
