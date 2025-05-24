@@ -1,0 +1,40 @@
+
+<svg width="200" height="250" viewBox="0 0 200 250" xmlns="http://www.w3.org/2000/svg">
+  <!-- Hintergrund-Glow -->
+  <circle cx="100" cy="100" r="80" fill="#0ff" opacity="0.05"/>
+  <circle cx="100" cy="100" r="65" fill="#0ff" opacity="0.08"/>
+
+  <!-- Pokéball-Gruppe zum Rotieren -->
+  <g transform="rotate(0 100 100)">
+    <circle cx="100" cy="100" r="60" fill="#fff" stroke="#333" stroke-width="6"/>
+    <path d="M40 100 A60 60 0 0 1 160 100" fill="red"/>
+    <line x1="40" y1="100" x2="160" y2="100" stroke="#333" stroke-width="6"/>
+    <circle cx="100" cy="100" r="14" fill="#fff" stroke="#333" stroke-width="4"/>
+    <circle cx="100" cy="100" r="7" fill="#0ff">
+      <animate attributeName="r" values="7;11;7" dur="0.8s" repeatCount="indefinite"/>
+      <animate attributeName="fill" values="#0ff;#00f;#0ff" dur="0.8s" repeatCount="indefinite"/>
+    </circle>
+    <!-- Dreh-Animation nur für Pokéball -->
+    <animateTransform attributeName="transform"
+      attributeType="XML"
+      type="rotate"
+      from="0 100 100"
+      to="360 100 100"
+      dur="2s"
+      repeatCount="indefinite"/>
+  </g>
+
+  <!-- Text darunter -->
+  <text x="100" y="210" font-family="Orbitron, sans-serif" font-size="14" fill="#0ff" text-anchor="middle">
+    Loading Poke-Data...
+    <animate attributeName="opacity" values="1;0.3;1" dur="1s" repeatCount="indefinite"/>
+  </text>
+
+  <!-- Pulsierende Neon-Linien -->
+  <line x1="30" y1="230" x2="170" y2="230" stroke="#0ff" stroke-width="2">
+    <animate attributeName="opacity" values="1;0.1;1" dur="0.6s" repeatCount="indefinite"/>
+  </line>
+  <line x1="50" y1="235" x2="150" y2="235" stroke="#0ff" stroke-width="1">
+    <animate attributeName="opacity" values="0.5;0.1;0.5" dur="0.4s" repeatCount="indefinite"/>
+  </line>
+</svg>

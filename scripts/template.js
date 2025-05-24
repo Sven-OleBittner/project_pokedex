@@ -1,0 +1,3 @@
+function getPokemonTemplate(pokeIndex) {
+    return ``;
+}
