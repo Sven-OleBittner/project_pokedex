@@ -54,7 +54,7 @@
 
 .poke_name , .poke_id {
   text-align: center;
-  color: white;
+  color: rgb(0, 0, 0);
 }
 
 .poke_sprite{
