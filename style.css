@@ -52,11 +52,16 @@
   box-shadow: 5px 5px 15px 5px rgba(0, 0, 0, 0.7);
 }
 
+.poke_sprite{
+  width: 120px;
+}
+
 .types_container {
   display: flex;
   gap: 4px;
   flex-direction: column;
   justify-content: center;
+  width: 120px;
 }
 
 .btn_container{
@@ -65,6 +70,6 @@
 }
 
 .more_btn {
-  background-color: #4caf50; /* Green */
+  background-color: #32734e;
   color: white;
 }

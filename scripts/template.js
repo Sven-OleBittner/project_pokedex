@@ -5,7 +5,7 @@ function getPokemonTemplate(id, name, sprite, types, bg) {
       >
         <span>ID : ${id}</span>
         <span>Name : ${name}</span>
-        <img src="${sprite}" alt="Bisa" />
+        <img class="poke_sprite" src="${sprite}" alt="Bisa" />
         <span class="types_container">${types}</span>
       </div>`;
 }
