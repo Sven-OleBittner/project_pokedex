@@ -8,10 +8,10 @@ function init() {
 
 async function getPokeDatas() {
   showLoadingSpinner();
- await new Promise((r) => setTimeout(r, 1));
+  await new Promise((r) => setTimeout(r, 1));
   let response = await fetch(URL_DATA + `pokemon?limit=${limit}&offset=0`);
   let pokeData = await response.json();
- 
+
   await renderPokemons(pokeData);
   deleteLoadingSpinner();
 }
@@ -39,7 +39,14 @@ async function renderPokemons(pokeData) {
     let sprite = data.sprites.front_default;
     let types = getPokeTypes(data);
     let bg = data.types[0].type.name;
-    pokeContainer.innerHTML += getPokemonTemplate(id, name, sprite, types, bg);
+    pokeContainer.innerHTML += getPokemonTemplate(
+      id,
+      name,
+      sprite,
+      types,
+      bg,
+      url
+    );
   }
 }
 
@@ -63,4 +70,100 @@ function getPokeTypes(data) {
 function loadMorePokes() {
   limit += 20;
   getPokeDatas();
+}
+
+async function getPokeSpeciesData(url) {
+  let response = await fetch(url);
+  let data = await response.json();
+  let speciesUrl = data.species.url;
+  let speciesResponse = await fetch(speciesUrl);
+  let speciesData = await speciesResponse.json();
+
+  await getPokeData(data, speciesData);
+}
+
+async function getPokeData(data, speciesData) {
+  let id = data.id;
+  let name = getPokeName(data);
+  let sprite = data.sprites.front_default;
+  let types = getPokeTypes(data);
+  let pokeCry = data.cries.legacy;
+  let weight = data.weight / 10;
+  let eggGroup = speciesData.egg_groups.map((group) => group.name).join(", ");
+  let pokeStats = getPokeStats(data.stats);
+  let evoChain = await getEvoChain(speciesData.evolution_chain.url);
+
+  renderPokeDetails(
+    id,
+    name,
+    sprite,
+    types,
+    pokeCry,
+    weight,
+    eggGroup,
+    pokeStats,
+    evoChain
+  );
+}
+
+function getPokeStats(stats) {
+  return stats.map((stat) => {
+    return {
+      name: stat.stat.name,
+      value: stat.base_stat,
+    };
+  });
+}
+
+async function getEvoChain(url) {
+  let response = await fetch(url);
+  let data = await response.json();
+  let evoNames = [];
+  function traverse(chain) {
+    evoNames.push(chain.species.name);
+    if (chain.evolves_to && chain.evolves_to.length > 0) {
+      traverse(chain.evolves_to[0]);
+    }
+  }
+  traverse(data.chain);
+  const evoChainHtml = evoNames
+    .map(n => `<span class="evo-pokemon">${n.charAt(0).toUpperCase() + n.slice(1)}</span>`)
+    .join('<span class="evo-arrow"> &rarr; </span>');
+  return evoChainHtml;
+}
+
+function playCry(cryUrl) {
+  if (cryUrl) {
+    let audio = new Audio(cryUrl);
+    audio.play();
+  }
+}
+
+function renderPokeDetails(
+  id,
+  name,
+  sprite,
+  types,
+  pokeCry,
+  weight,
+  eggGroup,
+  pokeStats,
+  evoChain
+) {
+  document.getElementById("pokeDetails").innerHTML = getPokemonDetailsTemplate(
+    id,
+    name,
+    sprite,
+    types,
+    pokeCry,
+    weight,
+    eggGroup,
+    pokeStats,
+    evoChain
+  );
+  document.getElementById("pokeDetailsOverlay").classList.remove("d_none");
+}
+
+function closePokeDetails() {
+  document.getElementById("pokeDetailsOverlay").classList.add("d_none");
 }

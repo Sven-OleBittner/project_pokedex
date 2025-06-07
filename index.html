@@ -23,6 +23,20 @@
         <p class="description">A simple Pokédex to search for Pokémon</p>
       </span>
     </section>
+    <section>
+      <div
+        id="pokeDetailsOverlay"
+        class="overlay d_none"
+        onclick="closePokeDetails()"
+      >
+        <div class="overlay-content" onclick="event.stopPropagation()">
+          <button class="close-btn" onclick="closePokeDetails()">
+            &times;
+          </button>
+          <div id="pokeDetails"></div>
+        </div>
+      </div>
+    </section>
     <section id="searchbar" class="searchbar top_bottom_padding">
       <div class="searchbar_container">
         <input

@@ -37,3 +37,7 @@ a {
   cursor: pointer;
   border-radius: 8px;
 }
+
+.curser_pointer {
+  cursor: pointer;
+}

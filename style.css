@@ -52,12 +52,13 @@
   box-shadow: 5px 5px 15px 5px rgba(0, 0, 0, 0.7);
 }
 
-.poke_name , .poke_id {
+.poke_name,
+.poke_id {
   text-align: center;
   color: rgb(0, 0, 0);
 }
 
-.poke_sprite{
+.poke_sprite {
   width: 120px;
 }
 
@@ -69,7 +70,7 @@
   width: 120px;
 }
 
-.btn_container{
+.btn_container {
   display: flex;
   justify-content: center;
 }
@@ -77,4 +78,56 @@
 .more_btn {
   background-color: #32734e;
   color: white;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.overlay-content {
+  background: #fff;
+  border-radius: 16px;
+  padding: 24px;
+  max-width: 500px;
+  width: 90vw;
+  position: relative;
+}
+
+.close-btn {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  background: none;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+.evo-chain {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.evo-pokemon {
+  font-weight: bold;
+  padding: 4px 8px;
+  background: #f2f2f2;
+  border-radius: 8px;
+}
+
+.evo-arrow {
+  font-size: 1.5em;
+  color: #888;
 }
