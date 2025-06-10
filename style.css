@@ -128,6 +128,35 @@
 }
 
 .evo-arrow {
-  font-size: 1.5em;
+  font-size: 20px;
   color: #888;
+}
+
+.pokemon_details_nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+
+.nav-arrow {
+  font-size: 2rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px 16px;
+  user-select: none;
+}
+
+.pokemon_details_content {
+  min-width: 250px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+}
+
+.type-icon {
+  width: 90px;
 }

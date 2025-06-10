@@ -1,0 +1,63 @@
+@media (max-width: 545px) and (min-width: 300px) {
+  .evo-chain {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 4px !important;
+  }
+
+  .pokemon_details_nav {
+    flex-direction: column !important;
+    align-items: center !important;
+  }
+
+  .nav-arrows-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 16px;
+    width: 100%;
+    margin-bottom: 8px;
+  }
+
+  .nav-arrow {
+    margin-bottom: 0;
+  }
+
+  .left {
+    display: none !important;
+  }
+
+  .right {
+    display: none !important;
+  }
+
+  .resp-arrows {
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: center !important;
+    gap: 16px !important;
+  }
+}
+
+@media (min-width: 545px) {
+  .pokemon_details_nav {
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+  }
+
+  .nav-arrows-row {
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    align-items: stretch !important;
+    width: auto !important;
+    margin-bottom: 0 !important;
+    gap: 0 !important;
+    height: 100%;
+    display: none !important;
+  }
+
+  .nav-arrow {
+    margin-bottom: 16px;
+  }
+}

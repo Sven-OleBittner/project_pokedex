@@ -167,3 +167,13 @@ function renderPokeDetails(
 function closePokeDetails() {
   document.getElementById("pokeDetailsOverlay").classList.add("d_none");
 }
+
+function showPrevPokemon(currentId) {
+  if (currentId > 1) {
+    getPokeSpeciesData(`${URL_DATA}pokemon/${currentId - 1}`);
+  }
+}
+
+function showNextPokemon(currentId) {
+  getPokeSpeciesData(`${URL_DATA}pokemon/${currentId + 1}`);
+}
