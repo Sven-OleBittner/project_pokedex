@@ -23,6 +23,12 @@ a {
   color: black;
 }
 
+.display_mid{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .d_none {
   display: none !important;
 }

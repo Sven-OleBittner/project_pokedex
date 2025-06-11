@@ -4,6 +4,12 @@ let limit = 20;
 
 function init() {
   getPokeDatas();
+  document
+    .getElementById("searchInput")
+    .addEventListener("input", searchPokemons);
+  document
+    .getElementById("searchButton")
+    .addEventListener("click", searchPokemons);
 }
 
 async function getPokeDatas() {
@@ -12,41 +18,61 @@ async function getPokeDatas() {
   let response = await fetch(URL_DATA + `pokemon?limit=${limit}&offset=0`);
   let pokeData = await response.json();
 
-  await renderPokemons(pokeData);
+  await pushPokemons(pokeData);
   deleteLoadingSpinner();
+}
+
+function searchPokemons() {
+  const input = document.getElementById("searchInput").value.trim().toLowerCase();
+  const pokeContainer = document.getElementById("pokeList");
+  pokeContainer.innerHTML = "";
+
+  if (!input.length) return renderPokemons();
+  if (input.length < 3) return pokeContainer.innerHTML = "<p>Bitte mindestens 3 Buchstaben eingeben.</p>";
+
+  const filtered = pokeList.filter(poke => poke.name.toLowerCase().includes(input));
+  if (!filtered.length) return pokeContainer.innerHTML = "<p>Kein Pokémon gefunden.</p>";
+
+  filtered.forEach(poke =>
+    pokeContainer.innerHTML += getPokemonTemplate(pokeList.indexOf(poke))
+  );
 }
 
 function showLoadingSpinner() {
   document.getElementById("loadingSpinner").innerHTML =
     '<img src="./assets/img/pokeball-loader.svg">';
   document.getElementById("pokeList").classList.add("d_none");
+  document.getElementById("btnContainer").classList.add("d_none");
 }
 
 function deleteLoadingSpinner() {
   document.getElementById("loadingSpinner").innerHTML = "";
   document.getElementById("pokeList").classList.remove("d_none");
+  document.getElementById("btnContainer").classList.remove("d_none");
 }
 
-async function renderPokemons(pokeData) {
-  let pokeContainer = document.getElementById("pokeList");
-  pokeContainer.innerHTML = "";
+async function pushPokemons(pokeData) {
   for (let pokeIndex = 0; pokeIndex < pokeData.results.length; pokeIndex++) {
     let url = pokeData.results[pokeIndex].url;
     let response = await fetch(url);
     let data = await response.json();
-    let id = data.id;
-    let name = getPokeName(data);
-    let sprite = data.sprites.front_default;
-    let types = getPokeTypes(data);
-    let bg = data.types[0].type.name;
-    pokeContainer.innerHTML += getPokemonTemplate(
-      id,
-      name,
-      sprite,
-      types,
-      bg,
-      url
-    );
+    pokeList.push({
+      id: data.id,
+      name: getPokeName(data),
+      sprite: data.sprites.front_default,
+      types: getPokeTypes(data),
+      bg: data.types[0].type.name,
+      url: url,
+    });
+  }
+  renderPokemons();
+}
+
+function renderPokemons() {
+  let pokeContainer = document.getElementById("pokeList");
+  pokeContainer.innerHTML = "";
+  for (let pokeIndex = 0; pokeIndex < pokeList.length; pokeIndex++) {
+    pokeContainer.innerHTML += getPokemonTemplate(pokeIndex);
   }
 }
 
@@ -127,7 +153,12 @@ async function getEvoChain(url) {
   }
   traverse(data.chain);
   const evoChainHtml = evoNames
-    .map(n => `<span class="evo-pokemon">${n.charAt(0).toUpperCase() + n.slice(1)}</span>`)
+    .map(
+      (n) =>
+        `<span class="evo-pokemon">${
+          n.charAt(0).toUpperCase() + n.slice(1)
+        }</span>`
+    )
     .join('<span class="evo-arrow"> &rarr; </span>');
   return evoChainHtml;
 }

@@ -1,11 +1,11 @@
-function getPokemonTemplate(id, name, sprite, types, bg, url) {
-    return `<div onclick="getPokeSpeciesData('${url}')"
-        class="pokemon_container site_padding top_bottom_padding ${bg} type_container curser_pointer"
+function getPokemonTemplate(pokeIndex) {
+    return `<div onclick="getPokeSpeciesData('${pokeList[pokeIndex].url}')"
+        class="pokemon_container site_padding top_bottom_padding ${pokeList[pokeIndex].bg} type_container curser_pointer"
       >
-        <span class="poke_id">#${id}</span>
-        <span class="poke_name">${name}</span>
-        <img class="poke_sprite" src="${sprite}" alt="Bisa" />
-        <span class="types_container">${types}</span>
+        <span class="poke_id">#${pokeList[pokeIndex].id}</span>
+        <span class="poke_name">${pokeList[pokeIndex].name}</span>
+        <img class="poke_sprite" src="${pokeList[pokeIndex].sprite}" alt="Bisa" />
+        <span class="types_container">${pokeList[pokeIndex].types}</span>
       </div>`;
 }
 
