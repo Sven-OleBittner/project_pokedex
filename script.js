@@ -94,8 +94,11 @@ function getPokeTypes(data) {
 }
 
 function loadMorePokes() {
+  pokeList.length = 0; // Clear the existing list
   limit += 20;
   getPokeDatas();
+  
+  
 }
 
 async function getPokeSpeciesData(url) {
